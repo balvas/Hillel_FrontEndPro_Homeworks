@@ -30,8 +30,9 @@ function functionThree() {
     let entireString = prompt('Введіть строку', '');
     let entireSymbols = prompt('Введіть символи для видалення зі строки через кому', '');
     let symbolsArray = entireSymbols.split(",").map(item => item.trim());
-    for (let symbol of symbolsArray) {
-        entireString = entireString.replace(symbol, '');
-    }
+    symbolsArray.forEach(item => {
+        re = new RegExp(item, 'g');
+        entireString = entireString.replace(re, '');
+    });
     alert(`Нова строка ${entireString}`);
 }
