@@ -42,14 +42,21 @@ function UserTable({ form, content, userInfo, addButton }) {
             `<td>${user.name}</td>` +
             `<td>${user.phone}</td>` +
             `<td>${user.age}</td>` +
-            `<td><button class="btn js--view">View</button><button class="btn">Edit</button><button class="btn">Delete</button></td>` +
+            `<td><button class="btn js--view">View</button><button class="btn js--edit">Edit</button><button class="btn js--delete">Delete</button></td>` +
             `</tr>`
         ))
-        // console.log(document.querySelectorAll('.js--view'));
+
         document.querySelectorAll('.js--view').forEach(item => {
-            // console.log(document.querySelectorAll('.js--view'));
             item.addEventListener('click', this.view);
-            // console.log(item);
+
+        })
+        document.querySelectorAll('.js--edit').forEach(item => {
+            item.addEventListener('click', this.edit);
+
+        })
+        document.querySelectorAll('.js--delete').forEach(item => {
+            item.addEventListener('click', this.delete);
+
         })
     }
 
@@ -67,20 +74,43 @@ function UserTable({ form, content, userInfo, addButton }) {
                 // localStorage.removeItem(i);
                 console.log(users[i]);
             }
+        }
+    }
+
+    this.edit = function (event) {
+        let currentId = event.target.closest('tr').firstChild.textContent;
+        console.log(currentId);
+        const users = JSON.parse(localStorage.getItem('users'));
+    }
+
+    this.delete = function (event) {
+        let currentId = event.target.closest('tr').firstChild.textContent;
+        console.log(currentId);
+        const users = JSON.parse(localStorage.getItem('users'));
+        // const index = users.indexOf(currentId);
+        // console.log(users);
+        // console.log(index);
+        for (let i = 0; i < users.length; i++) {
+            if (users[i]['id'] == currentId) {
+                let currentUsers = users.splice(i, 1);
+                console.log(currentUsers);
+                localStorage.setItem('users', JSON.stringify(currentUsers));
+
+            }
 
 
             // console.log(users[i]);
         }
     }
 
-}
 
-(new UserTable({
-    form: document.querySelector('.js--form'),
-    userInfo: document.querySelector('.js--user'),
-    addButton: document.querySelector('.js--add'),
-    content: document.querySelector('.js--content'),
-})).init();
+
+        (new UserTable({
+            form: document.querySelector('.js--form'),
+            userInfo: document.querySelector('.js--user'),
+            addButton: document.querySelector('.js--add'),
+            content: document.querySelector('.js--content'),
+        })).init();
 
 // let viewButton = document.querySelectorAll('.js--view');
 // console.log(viewButton);
