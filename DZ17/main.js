@@ -64,15 +64,10 @@ function UserTable({ form, content, userInfo, addButton }) {
 
     this.view = function (event) {
         let currentId = event.target.closest('tr').firstChild.textContent;
-        console.log(currentId);
         const users = JSON.parse(localStorage.getItem('users'));
         for (let i = 0; i < users.length; i++) {
-            // console.log(users[i]['id']);
             if (users[i]['id'] == currentId) {
-                console.log(document.querySelector('.js--user'));
                 document.querySelector('.js--user').textContent = `${JSON.stringify(users[i])}`;
-                // localStorage.removeItem(i);
-                console.log(users[i]);
             }
         }
     }
@@ -84,49 +79,20 @@ function UserTable({ form, content, userInfo, addButton }) {
     }
 
     this.delete = function (event) {
-        let currentId = event.target.closest('tr').firstChild.textContent;
-        console.log(currentId);
+        let currentRow = event.target.closest('tr');
+        let currentId = currentRow.firstChild.textContent;
+        currentRow.remove();
         const users = JSON.parse(localStorage.getItem('users'));
-        // const index = users.indexOf(currentId);
-        // console.log(users);
-        // console.log(index);
-        for (let i = 0; i < users.length; i++) {
-            if (users[i]['id'] == currentId) {
-                let currentUsers = users.splice(i, 1);
-                console.log(currentUsers);
-                localStorage.setItem('users', JSON.stringify(currentUsers));
-
-            }
-
-
-            // console.log(users[i]);
-        }
+        let currentUserId = users.findIndex(user => user['id'] == currentId);
+        users.splice(currentUserId, 1);
+        localStorage.setItem('users', JSON.stringify(users));
     }
+}
 
 
-
-        (new UserTable({
-            form: document.querySelector('.js--form'),
-            userInfo: document.querySelector('.js--user'),
-            addButton: document.querySelector('.js--add'),
-            content: document.querySelector('.js--content'),
-        })).init();
-
-// let viewButton = document.querySelectorAll('.js--view');
-// console.log(viewButton);
-// document.querySelectorAll('.js--view').forEach(item => {
-//     item.addEventListener('click', viewRowInCode(event));
-// })
-
-// function viewRowInCode(event) {
-//     let currentId = event.target.closest('tr').firstChild.textContent;
-// }
-// viewButton.addEventListener('click', function () {
-//     let currentId = viewButton.closest('tr').firstChild.textContent;
-//     console.log(currentId);
-//     const users = JSON.parse(localStorage.getItem('users'));
-//     for (let i = 0; i < users.length; i++) {
-//         console.log(users[i]);
-//     }
-
-// })
+(new UserTable({
+    form: document.querySelector('.js--form'),
+    userInfo: document.querySelector('.js--user'),
+    addButton: document.querySelector('.js--add'),
+    content: document.querySelector('.js--content'),
+})).init();
