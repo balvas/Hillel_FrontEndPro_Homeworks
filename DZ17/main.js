@@ -36,56 +36,61 @@ function UserTable({ form, content, userInfo, addButton }) {
         }
     }
     this.userTemplate = function (user) {
-        content.insertAdjacentHTML('beforeend', (
-            `<tr>` +
+        const newItem = document.createElement('tr');
+        newItem.classList.add('js--item');
+        newItem.dataset.id = user.id;
+        newItem.insertAdjacentHTML('beforeend', (
             `<td>${user.id}</td>` +
             `<td>${user.name}</td>` +
             `<td>${user.phone}</td>` +
             `<td>${user.age}</td>` +
-            `<td><button class="btn js--view">View</button><button class="btn js--edit">Edit</button><button class="btn js--delete">Delete</button></td>` +
-            `</tr>`
+            `<td><button class="btn js--view">View</button><button class="btn js--edit">Edit</button><button class="btn js--delete">Delete</button></td>`
         ))
 
-        document.querySelectorAll('.js--view').forEach(item => {
-            item.addEventListener('click', this.view);
-
-        })
-        document.querySelectorAll('.js--edit').forEach(item => {
-            item.addEventListener('click', this.edit);
-
-        })
-        document.querySelectorAll('.js--delete').forEach(item => {
-            item.addEventListener('click', this.delete);
-
-        })
+        newItem.querySelector('.js--view').addEventListener('click', this.viewItem);
+        newItem.querySelector('.js--edit').addEventListener('click', this.editItem);
+        newItem.querySelector('.js--delete').addEventListener('click', this.deleteItem);
+        content.appendChild(newItem);
     }
 
 
 
-    this.view = function (event) {
-        let currentId = event.target.closest('tr').firstChild.textContent;
-        const users = JSON.parse(localStorage.getItem('users'));
-        for (let i = 0; i < users.length; i++) {
-            if (users[i]['id'] == currentId) {
-                document.querySelector('.js--user').textContent = `${JSON.stringify(users[i])}`;
-            }
+    this.viewItem = function (event) {
+        const currentItem = this.closest('.js--item');
+        const currentUsers = JSON.parse(localStorage.getItem('users'));
+        const itemToView = currentUsers.filter(item => item.id === +currentItem.dataset.id);
+        document.querySelector('.js--user').textContent = `${JSON.stringify(itemToView)}`;
+    }
+
+    this.editItem = function (event) {
+        const currentItem = this.closest('.js--item');
+        const currentUsers = JSON.parse(localStorage.getItem('users'));
+        const itemToEdit = currentUsers.filter(item => item.id === +currentItem.dataset.id)[0];
+
+        itemToEdit.name = prompt('Введите имя', itemToEdit.name);
+        itemToEdit.phone = prompt('Введите имя', itemToEdit.phone);
+        itemToEdit.age = prompt('Введите имя', itemToEdit.age);
+        while (currentItem.firstChild) {
+            currentItem.removeChild(currentItem.firstChild);
         }
+
+        currentItem.insertAdjacentHTML('beforeend', (
+            `<td>${itemToEdit.id}</td>` +
+            `<td>${itemToEdit.name}</td>` +
+            `<td>${itemToEdit.phone}</td>` +
+            `<td>${itemToEdit.age}</td>` +
+            `<td><button class="btn js--view">View</button><button class="btn js--edit">Edit</button><button class="btn js--delete">Delete</button></td>`
+        ))
+
+        localStorage.setItem('users', JSON.stringify(currentUsers));
     }
 
-    this.edit = function (event) {
-        let currentId = event.target.closest('tr').firstChild.textContent;
-        console.log(currentId);
-        const users = JSON.parse(localStorage.getItem('users'));
-    }
-
-    this.delete = function (event) {
-        let currentRow = event.target.closest('tr');
-        let currentId = currentRow.firstChild.textContent;
-        currentRow.remove();
-        const users = JSON.parse(localStorage.getItem('users'));
-        let currentUserId = users.findIndex(user => user['id'] == currentId);
-        users.splice(currentUserId, 1);
-        localStorage.setItem('users', JSON.stringify(users));
+    this.deleteItem = function (event) {
+        const currentItem = this.closest('.js--item');
+        const currentUsers = JSON.parse(localStorage.getItem('users'));
+        const currentUsersWithoutItem = currentUsers.filter(item => item.id !== +currentItem.dataset.id);
+        currentItem.remove();
+        localStorage.setItem('users', JSON.stringify(currentUsersWithoutItem));
     }
 }
 
