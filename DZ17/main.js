@@ -50,42 +50,36 @@ function UserTable({ form, content, userInfo, addButton }) {
         newItem.querySelector('.js--view').addEventListener('click', this.viewItem);
         newItem.querySelector('.js--edit').addEventListener('click', this.editItem);
         newItem.querySelector('.js--delete').addEventListener('click', this.deleteItem);
-        content.appendChild(newItem);
+        content.appendChild(newItem)
     }
 
-
-
-    this.viewItem = function (event) {
+    this.viewItem = function () {
         const currentItem = this.closest('.js--item');
         const currentUsers = JSON.parse(localStorage.getItem('users'));
         const itemToView = currentUsers.filter(item => item.id === +currentItem.dataset.id);
         document.querySelector('.js--user').textContent = `${JSON.stringify(itemToView)}`;
     }
 
-    this.editItem = function (event) {
-        const currentItem = this.closest('.js--item');
+    this.editItem = (event) => {
+        const currentItem = event.target.closest('.js--item');
         const currentUsers = JSON.parse(localStorage.getItem('users'));
-        const itemToEdit = currentUsers.filter(item => item.id === +currentItem.dataset.id)[0];
-
-        itemToEdit.name = prompt('Введите имя', itemToEdit.name);
-        itemToEdit.phone = prompt('Введите имя', itemToEdit.phone);
-        itemToEdit.age = prompt('Введите имя', itemToEdit.age);
-        while (currentItem.firstChild) {
-            currentItem.removeChild(currentItem.firstChild);
-        }
-
-        currentItem.insertAdjacentHTML('beforeend', (
-            `<td>${itemToEdit.id}</td>` +
-            `<td>${itemToEdit.name}</td>` +
-            `<td>${itemToEdit.phone}</td>` +
-            `<td>${itemToEdit.age}</td>` +
-            `<td><button class="btn js--view">View</button><button class="btn js--edit">Edit</button><button class="btn js--delete">Delete</button></td>`
-        ))
-
-        localStorage.setItem('users', JSON.stringify(currentUsers));
+        const newUsers = currentUsers.map(function (item) {
+            if (+item.id === +currentItem.dataset.id) {
+                return {
+                    id: +currentItem.dataset.id,
+                    name: prompt('Введите имя', item.name) || item.name,
+                    phone: prompt('Введите телефон', item.phone) || item.name,
+                    age: prompt('Введите возраст', item.age) || item.name,
+                };
+            }
+            return item;
+        });
+        content.innerHTML = '';
+        newUsers.forEach(user => this.userTemplate(user));
+        localStorage.setItem('users', JSON.stringify(newUsers));
     }
 
-    this.deleteItem = function (event) {
+    this.deleteItem = function () {
         const currentItem = this.closest('.js--item');
         const currentUsers = JSON.parse(localStorage.getItem('users'));
         const currentUsersWithoutItem = currentUsers.filter(item => item.id !== +currentItem.dataset.id);
