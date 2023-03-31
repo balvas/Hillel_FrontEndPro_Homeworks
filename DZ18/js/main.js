@@ -1,38 +1,36 @@
 const imgSrcs = $(".js--gal_item img")
-   .map((_, { src }) => src) // extract property
-   .get() // get the array out of the jQuery object
-
-// console.log("sources", imgSrcs)
+   .map((_, { src }) => src)
+   .get()
 
 $(".js--gal_item img").on("click", function () {
-
+   const $prevButton = $(".js--modal__prev");
+   const $nextButton = $(".js--modal__next");
    let index = $(this).parent('li').index();
+   function checkIndex() {
+      if (index === 0)
+         $prevButton.hide();
+      else $prevButton.show();
+      if (index === imgSrcs.length - 1)
+         $nextButton.hide();
+      else $nextButton.show();
+   };
+
+   checkIndex();
 
    $(".js--modal").addClass("active");
    $(".js--modal__content").append('<img src="' + imgSrcs[index] + '">');
-   console.log(index);
-
    $(".js--modal__close").on("click", function () {
       $(".js--modal").removeClass("active");
       $(".js--modal__content").empty();
    });
 
-   function checkIndex() {
-      console.log(index);
-      if (index > 0)
-         $(".js--modal__prev").show();
-      else $(".js--modal__prev").hide();
-      if (index < imgSrcs.length - 1)
-         $(".js--modal__next").show();
-      else $(".js--modal__next").hide();
-   };
-
-   $(".js--modal__prev").on("click", function () {
+   $prevButton.on("click", function () {
       index--;
       $(".js--modal__content img").attr("src", imgSrcs[index]);
       checkIndex();
    });
-   $(".js--modal__next").on("click", function () {
+
+   $nextButton.on("click", function () {
       index++;
       $(".js--modal__content img").attr("src", imgSrcs[index]);
       checkIndex();
