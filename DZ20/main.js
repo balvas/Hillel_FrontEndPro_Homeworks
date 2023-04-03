@@ -1,4 +1,47 @@
 function StudentsTable({ form, content, userInfo, addButton }) {
+    if (localStorage.getItem("users") === null) {
+        const students = [
+            {
+                id: 1,
+                name: 'John',
+                surname: 'Doe',
+                dateofbirth: '1999-01-01',
+                age: 0,
+                attendanceArray: [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,],
+                estimatesArray: [100, 100, 100],
+                academicPerformance: ''
+            },
+            {
+                id: 2,
+                name: 'George',
+                surname: 'Smith',
+                dateofbirth: '2000-01-01',
+                age: 0,
+                attendanceArray: [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,],
+                estimatesArray: [100, 50, 70],
+                academicPerformance: ''
+            },
+            {
+                id: 3,
+                name: 'John',
+                surname: 'Smith',
+                dateofbirth: '1995-01-01',
+                age: 0,
+                attendanceArray: [false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,],
+                estimatesArray: [100, 50, 70],
+                academicPerformance: ''
+            }
+        ];
+        const studentsWithAge = students.map((student) => {
+            return {
+                ...student,
+                age: calculateAge(student.dateofbirth),
+                academicPerformance: getAcademicPerformance(student.estimatesArray)
+            };
+        });
+        localStorage.setItem('users', JSON.stringify(studentsWithAge));
+    }
+
     this.init = function () {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -14,7 +57,7 @@ function StudentsTable({ form, content, userInfo, addButton }) {
         })
         this.loadUsers();
     }
-    this.calculateAge = (dateOfBirth) => {
+    function calculateAge(dateOfBirth) {
         const dob = new Date(dateOfBirth);
         const now = new Date();
         let age = now.getFullYear() - dob.getFullYear();
@@ -24,8 +67,11 @@ function StudentsTable({ form, content, userInfo, addButton }) {
         }
         return age;
     }
+    function getAcademicPerformance(estimatesArray) {
+        return estimatesArray.reduce((a, b) => (a + b)) / estimatesArray.length;
+    }
     this.addStudent = function (name, surname, dateofbirth) {
-        const age = this.calculateAge(dateofbirth);
+        const age = calculateAge(dateofbirth);
         const user = {
             id: Math.floor(Math.random() * 100),
             name,
@@ -33,7 +79,7 @@ function StudentsTable({ form, content, userInfo, addButton }) {
             dateofbirth,
             age,
             attendanceArray: new Array(25),
-            estimatesArray: new Array,
+            estimatesArray: [],
             academicPerformance: ''
 
         }
@@ -77,7 +123,8 @@ function StudentsTable({ form, content, userInfo, addButton }) {
         const currentUsers = JSON.parse(localStorage.getItem('users'));
         const itemToView = currentUsers.find(item => item.id === userId);
         const input = prompt("Enter a list of numbers separated by commas:");
-        itemToView.estimatesArray = input.split(",").map(num => parseFloat(num.trim()));
+        const newEstimatesArray = input.split(",").map(num => parseFloat(num.trim()));
+        itemToView.estimatesArray = [...itemToView.estimatesArray, ...newEstimatesArray];
         itemToView.academicPerformance = itemToView.estimatesArray.reduce((a, b) => (a + b)) / itemToView.estimatesArray.length;
         localStorage.setItem('users', JSON.stringify(currentUsers));
     };
