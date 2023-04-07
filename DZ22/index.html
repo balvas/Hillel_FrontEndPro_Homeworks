@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Search for post by ID</title>
+  </head>
+  <body>
+    <label for="postId">Enter post ID (1-100):</label>
+    <input type="number" id="postId" min="1" max="100" />
+    <button id="searchButton">Search</button>
+
+    <div id="postContainer" style="display: none">
+      <h2>Post</h2>
+      <p id="postTitle"></p>
+      <p id="postBody"></p>
+      <button id="commentsButton">Load comments</button>
+    </div>
+
+    <script>
+      const apiUrl = "https://jsonplaceholder.typicode.com";
+
+      const postContainer = document.getElementById("postContainer");
+      const postTitle = document.getElementById("postTitle");
+      const postBody = document.getElementById("postBody");
+      const commentsButton = document.getElementById("commentsButton");
+      const searchButton = document.getElementById("searchButton");
+      const postIdInput = document.getElementById("postId");
+
+      const loadPostById = (postId) => {
+        return fetch(`${apiUrl}/posts/${postId}`).then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        });
+      };
+
+      const loadCommentsByPostId = (postId) => {
+        return fetch(`${apiUrl}/posts/${postId}/comments`).then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        });
+      };
+
+      searchButton.addEventListener("click", () => {
+        const postId = postIdInput.value;
+        loadPostById(postId)
+          .then((post) => {
+            postTitle.textContent = post.title;
+            postBody.textContent = post.body;
+            postContainer.style.display = "block";
+            commentsButton.addEventListener("click", () => {
+              loadCommentsByPostId(postId).then((comments) => {
+                console.log(comments);
+              });
+            });
+          })
+          .catch((error) => {
+            console.error("Error while loading post", error);
+            alert("Could not load post. Please try again later.");
+          });
+      });
+    </script>
+  </body>
+</html>
