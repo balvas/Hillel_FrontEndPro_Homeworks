@@ -1,0 +1,28 @@
+* {
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+   width: 800px;
+   margin: 0 auto;
+}
+
+#js--postTitle {
+   font-weight: 600;
+}
+
+.name {
+   font-size: 12px;
+   font-weight: 600;
+   margin-top: 24px;
+   line-height: 12px;
+}
+
+.email {
+   color: blue;
+}
+
+.comment-body {
+   font-size: 10px;
+   line-height: 12px;
+}
