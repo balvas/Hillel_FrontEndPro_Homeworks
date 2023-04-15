@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Homework 22</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <div class="container">
+    <label for="postId">Enter post ID (1-100):</label>
+    <input type="number" id="js--postId" min="1" max="100" />
+    <button id="js--searchButton">Search</button>
+
+    <div id="js--postContainer" style="display: none">
+      <h2>Post</h2>
+      <p id="js--postTitle"></p>
+      <p id="js--postBody"></p>
+      <button id="js--commentsButton">Load comments</button>
+      <div id="js--comments"></div>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+
+</html>

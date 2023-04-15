@@ -1,0 +1,25 @@
+{
+  "name": "dz23",
+  "version": "1.0.0",
+  "main": "gulpfiles.js",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0"
+  },
+  "scripts": {
+    "gulp": "gulp",
+    "build:js": "gulp js",
+    "watch": "gulp watch",
+    "minify-css": "gulp minify-css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@babel/preset-env": "^7.21.4",
+    "gulp-babel": "^8.0.0",
+    "gulp-es6-module-jstransform": "^0.3.0",
+    "gulp-minify": "^3.1.0"
+  }
+}
