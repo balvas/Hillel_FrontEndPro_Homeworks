@@ -36,6 +36,6 @@ h1 {
     border-right-style: none;
     border-bottom-style: none;
 }
-.present{background-color:red !important;color:red}
+.present:hover{background-color:green;color:#fff}.absent:hover{background-color:red;color:#fff}.summary:hover{background-color:#00008b;color:#fff}
 
 /*# sourceMappingURL=style.css.map*/
