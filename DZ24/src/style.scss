@@ -1,6 +1,16 @@
-$test: red;
+$present: green;
+$absent: red;
+$summary: darkblue;
 
-.present {
-    background-color: $test !important;
-    color: $test;
+.present:hover {
+    background-color: $present;
+    color: white;
+}
+.absent:hover {
+    background-color: $absent;
+    color: white;
+}
+.summary:hover {
+    background-color: $summary;
+    color: white;
 }

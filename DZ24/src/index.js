@@ -107,8 +107,8 @@ function StudentsTable({ form, content, userInfo, addButton }) {
             `<td>${user.name} ${user.surname}</td>` +
             `<td>${user.age}</td>` +
             `<td><button class="btn js--estimates">Add estimates</button></td>` +
-            `<td><button class="btn js--present present">Present</button><button class="btn js--absent">Absent</button></td>` +
-            `<td><button class="btn js--summary">View summary</button></td>`
+            `<td><button class="btn js--present present">Present</button><button class="btn js--absent absent">Absent</button></td>` +
+            `<td><button class="btn js--summary summary">View summary</button></td>`
         ))
         const addEstimatesButton = newItem.querySelector('.js--estimates');
         const trueButton = newItem.querySelector('.js--present');
