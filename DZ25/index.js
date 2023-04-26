@@ -37,9 +37,14 @@ class Swapi {
          this.elController.innerHTML = getURLInfo[1];
          const id = getURLInfo[2];
          this.elId.innerHTML = id;
+         const myDiv = document.querySelector('.js--img-container');
+         myDiv.innerHTML = '';
          if (id) {
             this.elId.classList.remove('d-none');
             this.elId.innerHTML = id;
+            const img = document.createElement('img');
+            img.src = `images/${getURLInfo[1]}${getURLInfo[2]}.jpg`;
+            myDiv.appendChild(img);
          } else {
             this.elId.classList.add('d-none');
          }
@@ -59,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
       elPre: document.querySelector('.js--swapi_pre'),
       elController: document.querySelector('.js--swapi_controller'),
       elId: document.querySelector('.js--swapi_id'),
-      elLoader: document.querySelector('.js--swapi_load')
+      elLoader: document.querySelector('.js--swapi_load'),
+
    });
 });
