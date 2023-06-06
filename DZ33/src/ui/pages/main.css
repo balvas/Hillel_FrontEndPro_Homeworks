@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  line-height: 1.2;
+  font-size: 18px;
+  background-color: #66deb2;
+}
+
+h1,
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* .container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 75%;
+  background-color: #fff;
+  padding: 10px;
+} */
+
+/* .form {
+  background: #fff;
+  padding: 10px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.form__input {
+  min-height: 25px;
+  padding: 10px;
+  border: 1px solid;
+  width: 100%;
+}
+
+.form div {
+  width: 100% !important;
+  display: block;
+} */
+
+.form__edit {
+  min-height: 25px;
+  padding: 10px;
+  width: 89%;
+  border: 1px solid #66deb2;
+}
+
+.form__btn {
+  background: #0be69d;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+}
+
+.header,
+.footer {
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.header__logo li,
+.footer li {
+  display: inline;
+  list-style: none;
+  padding: 20px;
+}
+
+.footer {
+  width: 100%;
+  margin-top: 70px;
+
+}
+
+.main {
+  max-width: 80%;
+  margin: auto;
+}
+
+a {
+  font-weight: 600;
+  text-decoration: none;
+  color: #000;
+}
+
+h1 {
+  margin-top: 40px;
+}
+
+
+.error__message {
+  font-size: small;
+  color: red;
+}
