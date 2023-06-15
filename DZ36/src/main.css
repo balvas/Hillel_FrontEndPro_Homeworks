@@ -10,7 +10,8 @@ body {
     background-color: #66deb2;
 }
 
-h1, h2 {
+h1,
+h2 {
     text-align: center;
     margin-top: 50px;
     margin-bottom: 15px;
@@ -42,7 +43,6 @@ h1, h2 {
     background: #0be69d;
     border: none;
     cursor: pointer;
-    /* width: 100px; */
     padding: 10px;
 }
 
@@ -55,13 +55,16 @@ h1, h2 {
     align-items: center;
     margin-bottom: 10px;
 }
+
 .todo-item--checked {
     text-decoration: line-through;
 }
+
 .todo-item__description {
     flex-grow: 1;
     padding-left: 10px;
 }
+
 .todo-item__delete {
     background: #0be69d;
     border: none;

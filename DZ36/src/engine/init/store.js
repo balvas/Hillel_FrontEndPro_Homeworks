@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import { logger } from "redux-logger";
 import thunk from "redux-thunk";
 // Engine
 import todosReducer from '../core/todos/slice';
@@ -10,14 +9,8 @@ export const store = configureStore({
         todos: todosReducer,
     },
     middleware: [
-        // logger,
         delay,
         thunk
     ]
-    // middleware: (getDefaultMiddleware) => {
-    //     return [
-    //         ...getDefaultMiddleware()
-    //         // loger
-    //     ]
-    // },
+
 })

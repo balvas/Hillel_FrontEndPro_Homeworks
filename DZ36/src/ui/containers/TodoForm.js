@@ -1,5 +1,4 @@
 import '../../main.css';
-import React, { useState } from "react";
 import { Form, Field } from 'react-final-form';
 
 import Button from "../components/form/Button";
@@ -12,14 +11,12 @@ import { useStyles } from "../pages/useStyle"
 
 function TodoForm() {
     const classes = useStyles();
-    const [inputValue, setInputValue] = useState("");
     const dispatch = useDispatch();
     const handleAdd = (values) => { dispatch(handleAddTodo(values)); };
 
     const onSubmit = (values, form) => {
         handleAdd(values.value);
         form.reset();
-        setInputValue("");
     };
 
     return (

@@ -1,16 +1,14 @@
 // Core
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 // Parts
 import Button from "./form/Button";
 import { useStyles } from "../pages/useStyle"
 // Engine
-import { todosActions, todosSelectors } from "../../engine/core/todos/slice";
 import { handleRemoveTodo, handleEditTodo } from "../../engine/core/todos/thunks";
 
 function TodoItem(props) {
     const { text, id } = props;
-    const items = useSelector(todosSelectors.items);
     const [editing, setEditing] = useState(false);
 
     const classes = useStyles();
