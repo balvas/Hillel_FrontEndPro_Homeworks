@@ -1,4 +1,5 @@
-/* eslint-disable */
+import React from 'react';
+import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -43,3 +44,11 @@ export default function HotelItem(props) {
     </Card>
   );
 }
+
+HotelItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
+  state: PropTypes.string.isRequired,
+  hotel_rating: PropTypes.number.isRequired,
+  address: PropTypes.string.isRequired,
+};

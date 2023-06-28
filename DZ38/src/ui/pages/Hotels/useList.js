@@ -1,5 +1,4 @@
 // Core
-import { useEffect } from 'react';
 import { push } from 'redux-first-history';
 import { useSelector, useDispatch } from 'react-redux';
 // Engine
@@ -10,11 +9,9 @@ export const useList = () => {
   const dispatch = useDispatch();
   const items = useSelector(hotelsSelectors.items);
   const loading = useSelector(hotelsSelectors.loading);
-  useEffect(() => {
-    if (items.length === 0) {
-      dispatch(push(links.main));
-    }
-  }, []);
+  if (items.length === 0) {
+    dispatch(push(links.hotels));
+  }
   return {
     items,
     loading,

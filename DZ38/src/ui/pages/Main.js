@@ -1,4 +1,4 @@
-/* eslint-disable */
+import React from 'react';
 import Box from '@mui/material/Box';
 import DestinationForm from '../components/DestinationForm';
 

@@ -1,5 +1,4 @@
-/* eslint-disable */
-import React, { useState } from 'react';
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import HotelItem from '../../components/HotelItem';
@@ -9,44 +8,29 @@ import { Select } from '@mui/material';
 import { MenuItem } from '@mui/material';
 // Hooks
 import { useList } from './useList';
+import { useSortedList } from './useSortedList';
 
 function Hotels() {
   const { items } = useList();
+  const [sortedItems, sortBy, setSortBy] = useSortedList(items);
 
-  const [sortBy, setSortBy] = useState('name');
 
   const handleChange = (event) => {
     setSortBy(event.target.value);
   };
 
-  const sortedItems = [...items];
-
-  sortedItems.sort((a, b) => {
-    if (sortBy === 'name') {
-      return a.name.localeCompare(b.name);
-    } else if (sortBy === 'rating') {
-      return b.hotel_rating - a.hotel_rating;
-    }
-    // Добавьте другие условия сортировки по необходимости
-    return 0;
-  });
+  if (sortedItems.length === 0) {
+    return (
+      <Typography gutterBottom component="h5" variant="h5">
+        The hotel list is empty.
+      </Typography>
+    );
+  }
   return (
     <>
       <Typography gutterBottom component="h5" variant="h5">
         Hotels
       </Typography>
-
-      {/* <div>
-        <label>
-          Sort by:
-          <select value={sortBy} onChange={handleSortChange}>
-            <option value="name">Name</option>
-            <option value="rating">Rating</option>
-
-          </select>
-        </label>
-      </div> */}
-
       <FormControl item xs={3} sx={{ m: 2, mx: 0, width: 100 }}>
         <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
         <Select
@@ -55,10 +39,7 @@ function Hotels() {
           value={sortBy}
           label="Sort by"
           onChange={handleChange}
-
         >
-
-          {/* <MenuItem value=''>Sort by</MenuItem> */}
           <MenuItem value='name'>Name</MenuItem>
           <MenuItem value='rating'>Rating</MenuItem>
         </Select>

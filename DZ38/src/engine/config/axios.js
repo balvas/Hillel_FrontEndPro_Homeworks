@@ -7,10 +7,3 @@ const instance = axios.create({
   },
 });
 
-export const api = Object.freeze({
-  getDestinations(params) {
-    return instance.get('destinations', { params });
-  },
-  // getHotels(params) {
-  // },
-});

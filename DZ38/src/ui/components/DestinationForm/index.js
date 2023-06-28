@@ -23,8 +23,8 @@ function DestinationForm() {
   const destinationLoading = useSelector(destinationSelectors.loading);
   const hotelsLoading = useSelector(hotelsSelectors.loading);
   const onSubmit = (value) => {
-    const city = destinationItems.find(obj => obj.value === value.destination);
-    value['city'] = city.label;
+    // const city = destinationItems.find(obj => obj.value === value.destination);
+    value['destinationItems'] = destinationItems;
     dispatch(getHotelsAsync(value));
   };
   const pending = destinationLoading || hotelsLoading;
